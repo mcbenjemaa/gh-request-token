@@ -1,0 +1,20 @@
+# action.yml
+name: 'Github runner registration token'
+description: 'Request registration token for Github self-hosted runner'
+inputs:
+  token:
+    description: 'The GITHUB API TOKEN'
+    required: true
+  repository:
+    description: 'The github repository. Default: github.repository'
+    required: false
+    default: '${{ github.repository }}'  
+outputs:
+  registration-token:
+    description: 'The registration token'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    REPOSITORY: ${{ inputs.repository }}
+    TOKEN: ${{ inputs.token }}
